@@ -92,16 +92,20 @@ for (c in cols[-1]) {
 }
 # 6
 lagN <- 60
-lag60Var <- rep(0, times=(length(ret$Date) - lagN))
-h <- rep(0, times=(length(ret$Date) - lagN))
+rows <- length(ret$Date)
+lag60Var <- rep(0, times=(rows - lagN))
+h <- rep(0, times=(rows - lagN))
+
 for(c in cols[-1]) {
-  for(i in 1:(length(ret[[c]]) - lagN)) {
+  for(i in 1:(rows - lagN)) {
     lag60Var[i] <- var(ret[[c]][i:(i + lagN)])
   }
-  h <- (0.06*lag(ret[[sprintf("%s%s", c, "sq")]][61:1536],1) + 
-          0.94*lag(lag60Var,1))^0.5
-  plot(x = ret$Date[61:1536], y = h, type = "line", 
+  h <- (0.06*lag(ret[[sprintf("%s%s", c, "sq")]][(lagN + 1):rows],1) + 
+        0.94*lag(lag60Var,1))^0.5
+  jpeg(filename = sprintf("~/502/assignment1/figures/ewa_var_%s.jpeg", c))
+  plot(x = ret$Date[(lagN + 1):rows], y = h, type = "line", 
        xlab = "Date", ylab = "Conditional Volatility",
        main = sprintf("%s Daily \n Exponentially Weighted Average Volatility \n 60 Day Lag", c),
        col="red")
+  dev.off()
 }
