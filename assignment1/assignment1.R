@@ -114,14 +114,16 @@ for(c in cols[-1]) {
   h <- rep(0, 1536)
   h[1]<-var(ret[1:60, c])
   for(i in c(2:1536)) {
-    h[i] <-0.06*ret[i-1, c]^2 + .94*h.spy[i-1] 
+    h[i] <-0.06*ret[i-1, c]^2 + .94*h[i-1] 
   }
   plot(h, type="l")
   vol <- sqrt(h)
+  jpeg(filename = sprintf("~/502/assignment1/figures/cond_var_%s.jpeg", c))
   plot(x=ret[1], y=vol, type="l",
        xlab = "Date", ylab = "Conditional Volatility",
        main = sprintf("%s Daily \n Exponentially Weighted Average Volatility \n 60 Day Lag", c),
        col="red")
+  dev.off()
 }
 # 6 - Wednesday
 h <-array(0, 1536)
