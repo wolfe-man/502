@@ -4,6 +4,7 @@ suppressMessages(library(dplyr))
 (my_sheets <- gs_ls())
 gap <- gs_title("HW 1 Fall 2017.xlsx")
 ret <- gap %>% gs_read(ws = "Sheet1")
+ret$Date <- as.Date(ret$Date, format = "%m/%d/%Y")
 cols <- names(ret)
 
 # 1
@@ -103,7 +104,7 @@ for(c in cols[-1]) {
   h <- (0.06*lag(ret[[sprintf("%s%s", c, "sq")]][(lagN + 1):rows],1) + 
         0.94*lag(lag60Var,1))^0.5
   jpeg(filename = sprintf("~/502/assignment1/figures/ewa_var_%s.jpeg", c))
-  plot(x = ret$Date[(lagN + 1):rows], y = h, type = "line", 
+  plot(x = ret$Date[(lagN + 2):rows], y = h[-1], type = "line", 
        xlab = "Date", ylab = "Conditional Volatility",
        main = sprintf("%s Daily \n Exponentially Weighted Average Volatility \n 60 Day Lag", c),
        col="red")
