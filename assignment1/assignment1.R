@@ -92,14 +92,19 @@ for (c in cols[-1]) {
   dev.off()
 }
 # 6 - Tuesday
-h.spy <- rep(0, 1536)
-h.spy[1]<-var(ret[1:60, "SPY"])
-for(i in c(2:1536)) {
-  h.spy[i] <-0.06*ret[i-1, "SPY"]^2 + .94*h.spy[i-1] 
+for(c in cols[-1]) {
+  h <- rep(0, 1536)
+  h[1]<-var(ret[1:60, c])
+  for(i in c(2:1536)) {
+    h[i] <-0.06*ret[i-1, c]^2 + .94*h.spy[i-1] 
+  }
+  plot(h, type="l")
+  vol <- sqrt(h)
+  plot(x=ret[1], y=vol, type="l",
+       xlab = "Date", ylab = "Conditional Volatility",
+       main = sprintf("%s Daily \n Exponentially Weighted Average Volatility \n 60 Day Lag", c),
+       col="red")
 }
-plot(h.spy, type="l")
-vol.spy <- sqrt(h.spy)
-plot(x=ret[1], y=vol.spy, type="l")
 # 6 - Wednesday
 h <-array(0, 1536)
 condition.vol <-ret
