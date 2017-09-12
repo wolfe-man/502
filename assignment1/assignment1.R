@@ -91,7 +91,28 @@ for (c in cols[-1]) {
   abline(0,1, col= "red")
   dev.off()
 }
-# 6
+# 6 - Tuesday
+h.spy <- rep(0, 1536)
+h.spy[1]<-var(ret[1:60, "SPY"])
+for(i in c(2:1536)) {
+  h.spy[i] <-0.06*ret[i-1, "SPY"]^2 + .94*h.spy[i-1] 
+}
+plot(h.spy, type="l")
+vol.spy <- sqrt(h.spy)
+plot(x=ret[1], y=vol.spy, type="l")
+# 6 - Wednesday
+h <-array(0, 1536)
+condition.vol <-ret
+for(i in cols[-1]) {
+  h[1] <- var(ret[,i])
+  for(j in c(2:1536)) {
+    h[j] <- 0.6*ret[j-1, i]^2+0.94*h[j-1]
+  }
+  condition.vol[,i]<-sqrt(h)
+}
+plot(ret[[1]], ret[[7]], type="l")
+lines(ret[[1]], condition.vol[[7]], col="red", lwd=3)
+# 6 - Me
 lagN <- 60
 rows <- length(ret$Date)
 lag60Var <- rep(0, times=(rows - lagN))
