@@ -12,8 +12,26 @@ library(psych)
 ret.descStats <- round(describe(ret[-1]), 3)
 View(ret.descStats)
 library(gridExtra)
-jpeg(filename = "~/502/assignment1/figures/tbl_descriptive_statistics.png", height = 170, width = 240)
+jpeg(filename = "~/502/assignment1/figures/tbl_descriptive_statistics.jpeg", height = 170, width = 240)
 grid.table(subset(ret.descStats, select = c("mean", "sd", "skew", "kurtosis")))
+dev.off()
+
+jpeg(filename = "~/502/assignment1/figures/histogram_GXC.jpeg", height = 700, width = 700)
+g <- ret$GXC
+h <- hist(g, main = "Histogram for GXC \nDaily Percent Changes", breaks = 20, col = "gray", xlab = "GXC") 
+xfit <- seq(min(g), max(g), length = 40) 
+yfit <- dnorm(xfit, mean = mean(g), sd = sd(g)) 
+yfit <- yfit * diff(h$mids[1:2]) * length(g) 
+lines(xfit, yfit, col = "black", lwd = 2)
+dev.off()
+
+jpeg(filename = "~/502/assignment1/figures/histogram_BZF.jpeg", height = 700, width = 700)
+g <- ret$BZF
+h <- hist(g, main = "Histogram for BZF \nDaily Percent Changes", breaks = 20, col = "gray", xlab = "GXC") 
+xfit <- seq(min(g), max(g), length = 40) 
+yfit <- dnorm(xfit, mean = mean(g), sd = sd(g)) 
+yfit <- yfit * diff(h$mids[1:2]) * length(g) 
+lines(xfit, yfit, col = "black", lwd = 2)
 dev.off()
 # 2
 library(reshape2)
