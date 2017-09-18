@@ -1,15 +1,15 @@
 # 1
 # a P(Star)
-0.10
 # P(Star|Winning Record)
 S <- c(0.1, 0.9)
 W <- c(0.75, 0.5)
-and <- S*W^8
+and <- S*W^5
 and / sum(and)
 # 2
 # a
+library(distrEx)
 X <- Binom(size = 10, prob = .1)
-E(X); var(x)
+E(X); var(X)
 # b
 pbinom(1, size = 10, prob = .1, lower.tail = FALSE)
 # 3
@@ -19,9 +19,9 @@ E(X)
 # b 
 var(X)
 # c
-pbinom(0, size = 10, prob = .1, lower.tail = FALSE)
+pbinom(0, size = 40, prob = .05, lower.tail = FALSE)
 # d
-pnorm(1, 2, 1.9, lower.tail = FALSE)
+pnorm(0.5, 2, 1.378, lower.tail = FALSE)
 # 4
 # a
 ppois(2, lambda = 1, lower.tail = FALSE)
@@ -33,10 +33,10 @@ us <- Norm(mean = .06, sd = .1)
 # a
 .4*E(em) + .6*E(us)
 # b
-(.4*var(em) + .6*var(us) - 2*.4*var(us)*var(em))^.5
+(.4^2*var(em) + .6^2*var(us) + 2*.4*.4*.6)^.5
 # c
 pnorm(0, mean = (.4*E(em) + .6*E(us)), 
-      sd = (.4*var(em) + .6*var(us) - 2*.4*var(us)*var(em))^.5)
+      sd = (.4^2*var(em) + .6^2*var(us) + 2*.4*.4*.6)^.5)
 # 6
 # a
 dgeom(1, prob = 0.05)
@@ -48,10 +48,10 @@ dgeom(3, prob = 0.05)
 pgeom(3, prob = 0.05, lower.tail = FALSE)
 # 7
 # a
-dhyper(2, m = 3, n = 100, k = 20)
+dhyper(2, m = 3, n = 97, k = 20)
 # b
-phyper(1, m = 3, n = 100, k = 20)
+phyper(1, m = 3, n = 97, k = 20)
 # c
-phyper(1, m = 3, n = 100, k = 20, lower.tail = FALSE)
+phyper(1, m = 3, n = 97, k = 20, lower.tail = FALSE)
 # d
 # about 10% of the time there are more than 2 errors, NOT GOOD!
