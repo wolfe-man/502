@@ -33,19 +33,19 @@ us <- Norm(mean = .06, sd = .1)
 # a
 .4*E(em) + .6*E(us)
 # b
-(.4^2*var(em) + .6^2*var(us) + 2*.4*.4*.6)^.5
+(.4^2*var(em) + .6^2*var(us) + 2*.4*.4*.6*.15*.1)^.5
 # c
 pnorm(0, mean = (.4*E(em) + .6*E(us)), 
-      sd = (.4^2*var(em) + .6^2*var(us) + 2*.4*.4*.6)^.5)
+      sd = (.4^2*var(em) + .6^2*var(us) + 2*.4*.4*.6*.15*.1)^.5)
 # 6
 # a
-dgeom(1, prob = 0.05)
+dgeom(0, prob = 0.05)
 # b
-dgeom(2, prob = 0.05)
+dgeom(1, prob = 0.05)
 # c
-dgeom(3, prob = 0.05)
+dgeom(2, prob = 0.05)
 # d
-pgeom(3, prob = 0.05, lower.tail = FALSE)
+pgeom(2, prob = 0.05, lower.tail = FALSE)
 # 7
 # a
 dhyper(2, m = 3, n = 97, k = 20)
